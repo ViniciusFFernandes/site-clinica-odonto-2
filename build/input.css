@@ -1,0 +1,142 @@
+@import "tailwindcss" source(none);
+@source "../index.php";
+@source "../js/app.js";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius: 1.25rem;
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 22px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-sage: var(--sage);
+  --color-sage-foreground: var(--sage-foreground);
+  --color-deep: var(--deep);
+  --color-deep-foreground: var(--deep-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-rose: var(--rose);
+  --color-gold: var(--gold);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* Paleta: off-white, cinza claro, verde sálvia, rosé gold, dourado discreto */
+  --background: oklch(0.985 0.006 95);           /* off-white quente */
+  --foreground: oklch(0.30 0.02 145);            /* verde-ardósia escuro */
+  --card: oklch(0.995 0.004 95);
+  --card-foreground: oklch(0.30 0.02 145);
+
+  --primary: #4a5a48;                            /* verde sálvia escuro (texto/títulos) */
+  --primary-foreground: oklch(0.985 0.008 95);
+  --sage: #7c9070;                               /* verde sálvia */
+  --sage-foreground: oklch(0.99 0.01 120);
+  --deep: #3a463a;                               /* verde profundo (fundos escuros) */
+  --deep-foreground: oklch(0.97 0.01 110);
+
+  --secondary: oklch(0.955 0.01 95);             /* cinza/off-white claro */
+  --secondary-foreground: #4a5a48;
+  --muted: oklch(0.955 0.01 95);
+  --muted-foreground: oklch(0.50 0.02 130);
+
+  --accent: #b98f76;                             /* rosé gold (detalhes/CTA) */
+  --accent-foreground: oklch(0.995 0.004 60);
+  --accent-soft: oklch(0.93 0.03 55);            /* rosé bem claro */
+  --rose: #c9a28a;                               /* rosé gold claro */
+  --gold: #b8965a;                               /* dourado discreto */
+
+  --whatsapp: #b98f76;                           /* CTA WhatsApp na paleta rosé */
+  --whatsapp-foreground: oklch(0.995 0.004 60);
+
+  --border: oklch(0.90 0.012 90);
+  --input: oklch(0.90 0.012 90);
+  --ring: #b98f76;
+
+  --gradient-deep: linear-gradient(135deg, #3a463a 0%, #4a5a48 55%, #5c6e54 100%);
+  --gradient-soft: linear-gradient(180deg, oklch(0.97 0.012 95), oklch(0.985 0.006 95));
+  --gradient-rose: linear-gradient(120deg, #c9a28a, #b98f76);
+  --gradient-gold: linear-gradient(120deg, #c9a28a, #b8965a);
+  --shadow-soft: 0 14px 40px -18px oklch(0.40 0.03 140 / 0.28);
+  --shadow-lift: 0 34px 80px -30px oklch(0.38 0.04 140 / 0.40);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  ::selection {
+    background-color: var(--rose);
+    color: #fff;
+  }
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility surface-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+  &:hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-6px);
+    border-color: color-mix(in oklab, var(--rose) 55%, transparent);
+  }
+}
+
+@utility text-balance { text-wrap: balance; }
+
+/* Tratamentos — chips de navegação por categoria */
+.esp-tab-active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+.esp-tab-active .esp-tab-icon {
+  color: var(--rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
